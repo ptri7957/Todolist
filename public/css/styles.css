@@ -1,0 +1,54 @@
+body{
+  background-color: gray;
+  font-family: 'Roboto', sans-serif;
+}
+
+h1{
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+form{
+  display: block;
+}
+
+.box{
+  margin-top: 50px;
+}
+
+.app-container{
+  margin-top: 100px;
+}
+
+.item, .add-item-form{
+  background-color: lightgray;
+  border-bottom: 1px solid lightgray;
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.item-container{
+  width: 70%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.form-container{
+  width: 72%;
+  margin: 50px auto 0 auto;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.delete-btn{
+  display: flex;
+}
+
+footer{
+  text-align: center;
+  margin-top: 50px;
+  color: white;
+}

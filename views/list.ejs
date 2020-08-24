@@ -1,0 +1,45 @@
+<%- include('header') -%>
+
+  <div class="app-container container">
+    <h1><%= title %></h1>
+    <div class="box container">
+      <div class="item-container">
+        <% items.forEach((item) => { %>
+          <div class="row item">
+            <div class="col-lg-10 col-md-10">
+              <h3><%= item.getTitle() %></h3>
+              <p><%= item.getDescription() %></p>
+            </div>
+            <div class="col-lg-2 col-md-2 delete-btn">
+              <form action="/delete" method="post">
+                <input type="hidden" name="hidden" value="<%= title %>"></input>
+                <button class="btn btn-danger delete" type="submit" name="delete" value="<%= item.getTitle() %>">Delete</button>
+              </form>
+            </div>
+          </div>
+
+        <% }) %>
+      </div>
+      <form class="form-container add-item-form" action="/" method="post">
+        <div class="row">
+          <div class="col-lg-5">
+            <div class="form-group">
+              <input class="form-control" type="text" name="title" placeholder="Title">
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="form-group">
+              <input class="form-control" type="text" name="description" placeholder="Task Description">
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <button type="submit" class="btn btn-primary" name="submit" value="<%= title %>">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+
+<%- include('footer') -%>
