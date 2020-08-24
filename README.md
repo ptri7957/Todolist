@@ -19,8 +19,14 @@ A todo list app
 </ul>
 
 # Install
-Run: npm init<br>
-Then run: npm i <Dependencies><br>
+Run: 
+```bash
+$ npm init
+```
+Then run: 
+```bash
+$ npm i [Dependencies]
+```
 to install the dependencies for the project
   
 # Author
