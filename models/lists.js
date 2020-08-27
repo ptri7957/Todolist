@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const items = require('./items');
 
-const listSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const listSchema = new Schema({
+  user_id: String,
   title: String,
   list: [items.itemSchema]
 });

@@ -13,6 +13,19 @@ form{
   display: block;
 }
 
+.order-lg-2{
+  margin-bottom: 50px;
+}
+
+.padded {
+  padding-top: 200px;
+
+}
+
+.centered {
+  text-align: center;
+}
+
 .box{
   margin-top: 50px;
 }
@@ -43,8 +56,9 @@ form{
   border-bottom: none;
 }
 
-.delete-btn{
-  display: flex;
+#logout{
+  text-decoration: none;
+  float: right;
 }
 
 footer{
@@ -52,3 +66,20 @@ footer{
   margin-top: 50px;
   color: white;
 }
+
+.fa-clipboard{
+  font-size: 10em;
+  color: white;
+}
+
+@media all and (min-width: 1024px) and (max-width: 1280px) { }
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .delete-btn .delete{
+    font-size: 0.8em;
+  }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) { }
+
+@media all and (max-width: 480px) { }

@@ -1,9 +1,8 @@
 const items = require('../models/items');
 const lists = require('../models/lists');
 
-module.exports.getItems = async (req, res, next) => {
-  try {
-    await items.Item.find({}, (err, foundItems) => {
+module.exports.getItems = (req, res) => {
+  items.Item.find({user_id: req.user.id}, (err, foundItems) => {
       if(err){
         console.log(err);
       }else{
@@ -13,26 +12,25 @@ module.exports.getItems = async (req, res, next) => {
         });
       }
     });
-  } catch (e) {
-    next(e);
-  }
 }
 
 module.exports.getItemsFromExtList = async (req, res, next) => {
   try {
-    await lists.List.findOne({title: req.params.listName}, (err, foundList) => {
+    await lists.List.findOne({user_id: req.user.id, title: req.params.listName}, (err, foundList) => {
       if(!foundList){
         const item = new items.Item({
+          user_id: req.user.id,
           title: "TODO",
           description: "Todo"
         });
         const newList = new lists.List({
+          user_id: req.user.id,
           title: req.params.listName,
           list: [item]
         });
         newList.save();
         console.log("CREATED");
-        res.redirect('/' + req.params.listName);
+        res.redirect('/list/' + req.params.listName);
       }else{
         res.render('list', {
           title: req.params.listName,
@@ -48,9 +46,9 @@ module.exports.getItemsFromExtList = async (req, res, next) => {
 
 module.exports.deleteItemFromExtList = async (req, res, next) => {
   try {
-    await lists.List.findOneAndUpdate({title: req.body.hidden}, {$pull: {list: {title: req.body.delete}}}, (err) => {
+    await lists.List.findOneAndUpdate({user_id: req.user.id, title: req.body.hidden}, {$pull: {list: {title: req.body.delete}}}, (err) => {
       if(!err){
-        res.redirect('/' + req.body.hidden);
+        res.redirect('/list/' + req.body.hidden);
       }
     });
   } catch (e) {
@@ -62,14 +60,15 @@ module.exports.postItems = async (req, res, next) => {
   try {
     const title = req.body.title;
     const description = req.body.description;
-    await items.Item.create({title: title, description: description}, (err) => {
+    await items.Item.create({user_id: req.user.id, title: title, description: description}, (err) => {
       if(err){
         console.log(err);
       }else{
-        console.log("Item deleted successfully");
+        console.log("Item posted successfully");
+        res.redirect('/');
       }
     });
-    res.redirect('/');
+
   } catch (e) {
     next(e)
   }
@@ -77,15 +76,16 @@ module.exports.postItems = async (req, res, next) => {
 
 module.exports.postItemToList = async (req, res, next) => {
 
-  await lists.List.findOne({title: req.body.submit}, (err, foundList) => {
+  await lists.List.findOne({user_id: req.user.id, title: req.body.submit}, (err, foundList) => {
     if(!err){
       const item = new items.Item({
+        user_id: req.user.id,
         title: req.body.title,
         description: req.body.description
       });
       foundList.list.push(item);
       foundList.save();
-      res.redirect('/' + req.body.submit);
+      res.redirect('/list/' + req.body.submit);
     }
   });
 
@@ -94,8 +94,8 @@ module.exports.postItemToList = async (req, res, next) => {
 module.exports.deleteItems = async (req, res, next) => {
   try {
     const title = req.body.delete;
-    console.log(title);
-    await items.Item.deleteOne({title: title}, (err) => {
+
+    await items.Item.deleteOne({user_id: req.user.id, title: title}, (err) => {
       if(err){
         console.log(err);
       }else{

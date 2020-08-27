@@ -5,8 +5,13 @@ const items = require('../models/items');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  todo.getItems(req, res, next);
+router.get('/', (req, res) => {
+  if(req.user){
+    //console.log(req.user.id);
+    todo.getItems(req, res);
+  }else{
+    res.redirect('/login');
+  }
 });
 
 router.post('/', async (req, res, next) => {
@@ -31,7 +36,12 @@ router.post('/delete', async (req, res, next) => {
 });
 
 router.get('/:listName', async (req, res, next) => {
-  todo.getItemsFromExtList(req, res, next);
+  if(req.user){
+    todo.getItemsFromExtList(req, res, next);
+  }else{
+    res.redirect('/login');
+  }
+
 });
 
 module.exports = router;
