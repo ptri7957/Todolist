@@ -16,6 +16,9 @@ A todo list app
   <li>mongoose</li>
   <li>ejs</li>
   <li>body-parser</li>
+  <li>passport</li>
+  <li>passport-local</li>
+  <li>express-session</li>
 </ul>
 
 # Install
